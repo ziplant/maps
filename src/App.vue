@@ -1,28 +1,43 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+#app
+  Map(@show-hint="showHint")
+  HintModal(v-if="hintMessage") {{hintMessage}}
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import useHint from '@/compositions/hint';
+import Map from '@/components/Map.vue';
+import HintModal from '@/components/HintModal.vue';
 
 export default {
   name: 'App',
+  setup() {
+    const {
+      hintMessage,
+      showHint,
+    } = useHint();
+
+    return {
+      hintMessage,
+      showHint,
+    };
+  },
   components: {
-    HelloWorld,
+    Map,
+    HintModal,
   },
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+html,
+body
+  height: 100%
+
+body
+  margin: 0
+
+#app
+  height: 100%
+  font-family: sans-serif
 </style>
